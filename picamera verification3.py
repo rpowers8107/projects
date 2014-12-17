@@ -4,20 +4,20 @@ def getpic(name):
         with picamera.PiCamera() as camera:
             q ="n"
             while q == "n":
-                camera.start_preview()
+                camera.start_preview()      #shows preview of what picture will look like.
                 time.sleep(3)
                 camera.capture("{0}.jpeg".format(name))
                 camera.stop_preview()
                 q = input("is this image okay? (Y/N) ")
-        print("your filename is {0}.jpeg".format(name))
+        print("your filename is {0}.jpeg".format(name)) #saves as yourname.jpeg.
         return filename
 
-    except picamera.exc.PicameraMALError: 
+    except picamera.exc.PicameraMALError:   #if there's an error with camera gives the following message.
         print("there is a problem with the camera, please check it's connected.")
         
         
 
-def getCharProfile():
+def getCharProfile():   #gathers traits for character picture.
     name = ""
     while name == "":
           name = input("What is your name?")
@@ -39,19 +39,18 @@ def getCharProfile():
     glasses = ""
     while glasses =="":
           glasses = input(" Are you wearing glasses?")
-
-    global profileList
-    profileList = [name,hair,hat,gender,eyes,facial,glassses]
-    return profileList
+    characterProfile = [name,hair,hat,gender,eyes,facial,glasses]
+    return characterProfile #returns traits
+    
 
 
 def getCharProfile():
     return[name,filename,hair,hat,gender,eyes,facial,glasses]
 
-def saveCharProfile():
-    getCharProfile()
-    profile = profileList
-    with open("profiles.txt",mode = "a",encoding="utf-8") as my_file:
+def saveCharProfile(profileList):
+    profile = getCharProfile()
+    profileList.append(profile)
+    with open("Files.txt",mode = ) as file:
         my_file.write(str(profile))
     with open("profiles.txt",mode = "a") as my_file:
         json.dump(profile,my_file)
